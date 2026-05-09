@@ -181,6 +181,28 @@
   .build-math{margin-top:20px;padding:18px;background:var(--bone);border-left:3px solid var(--orange);border-radius:0 3px 3px 0;font-size:14px;color:var(--text-dark);line-height:1.6}
   .build-math strong{color:var(--maroon-deep);font-weight:700}
 
+  /* DM TRIAGE DIAGRAM — visualizes the Piece 1 mechanic */
+  .triage-diagram{margin:24px 0 8px;padding:24px 22px;background:linear-gradient(180deg,var(--bone) 0%,var(--cream) 100%);border:1px solid var(--border);border-radius:6px}
+  .triage-diagram-label{font-size:10px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--maroon-deep);margin-bottom:18px;text-align:center}
+  .triage-flow{display:grid;grid-template-columns:auto 1fr;gap:16px 24px;align-items:center}
+  @media(max-width:520px){.triage-flow{grid-template-columns:1fr;gap:12px}}
+  .triage-source{padding:14px 18px;background:var(--noir);color:var(--cream);border-radius:4px;font-family:'Inter',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.04em;text-align:center;display:flex;flex-direction:column;align-items:center;gap:4px;min-width:140px;border:1px solid var(--maroon)}
+  .triage-source-icon{font-family:'Playfair Display',serif;font-size:24px;color:var(--maroon-bright);line-height:1;margin-bottom:2px}
+  .triage-source-label{font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:rgba(245,239,232,0.6);font-weight:600}
+  .triage-branches{display:grid;grid-template-rows:1fr 1fr 1fr;gap:8px;position:relative}
+  .triage-branch{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:center;padding:10px 14px;background:var(--white);border-radius:3px;border:1px solid var(--border);transition:border-color 0.2s ease, transform 0.2s ease}
+  .triage-branch:hover{border-color:var(--maroon);transform:translateX(2px)}
+  .triage-branch.primary{border-left:3px solid var(--maroon)}
+  .triage-branch.secondary{border-left:3px solid var(--orange)}
+  .triage-branch.tertiary{border-left:3px solid var(--text-light);opacity:0.78}
+  .triage-tag{display:inline-block;padding:3px 8px;background:var(--maroon-soft);color:var(--maroon-deep);border-radius:2px;font-size:9px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;white-space:nowrap}
+  .triage-branch.secondary .triage-tag{background:rgba(251,168,113,0.18);color:#a86821}
+  .triage-branch.tertiary .triage-tag{background:rgba(33,31,31,0.06);color:var(--text-light)}
+  .triage-route{font-size:13px;color:var(--text-dark);font-weight:500;line-height:1.4}
+  .triage-route strong{color:var(--text-dark);font-weight:700}
+  .triage-arrow{display:inline-block;color:var(--maroon-bright);font-weight:700;margin:0 6px}
+  @media(max-width:520px){.triage-branch{grid-template-columns:1fr;gap:6px}.triage-tag{justify-self:start}}
+
   /* TIMELINE */
   .timeline-band{padding:96px 0;background:var(--noir);color:var(--cream);position:relative;overflow:hidden}
   .timeline-band::before{content:'';position:absolute;top:50%;left:50%;width:90%;height:200%;transform:translate(-50%,-50%);background:radial-gradient(ellipse,rgba(212,160,23,0.18) 0%,transparent 60%);pointer-events:none}
@@ -418,10 +440,35 @@
         <ul>
           <li><strong>Multi-band targeting:</strong> public-record homeowner data filtered by tenure, equity, and ZIP cluster, segmented across $700K, $1M–$2M, and $3M+ tiers so each gets its own message</li>
           <li><strong>Sequence:</strong> 4–5 step email cadence per tier, "market check-in" tone (broker-to-owner), not pitch tone</li>
-          <li><strong>DM triage layer:</strong> daily IG DMs sorted by intent, buyer/seller routes to team intake the same day, aspiring-agent routes to Piece 2</li>
+          <li><strong>DM triage layer:</strong> daily IG DMs sorted by intent, three buckets (see diagram below)</li>
           <li><strong>Reply routing:</strong> warm replies land in Follow-Up Boss with pre-qualification context attached</li>
           <li><strong>Reporting:</strong> reply rate by ZIP × tier, listing conversion, monthly review</li>
         </ul>
+
+        <div class="triage-diagram" aria-label="DM triage flow diagram">
+          <div class="triage-diagram-label">How the daily DM triage routes intent</div>
+          <div class="triage-flow">
+            <div class="triage-source">
+              <div class="triage-source-icon">@</div>
+              Daily IG DMs
+              <span class="triage-source-label">Inbox</span>
+            </div>
+            <div class="triage-branches">
+              <div class="triage-branch primary">
+                <span class="triage-tag">Bucket 1</span>
+                <div class="triage-route"><strong>Buyer / seller intent</strong><span class="triage-arrow">→</span> Follow-Up Boss team intake (same-day)</div>
+              </div>
+              <div class="triage-branch secondary">
+                <span class="triage-tag">Bucket 2</span>
+                <div class="triage-route"><strong>Aspiring-agent intent</strong><span class="triage-arrow">→</span> Piece 2 recruiting funnel</div>
+              </div>
+              <div class="triage-branch tertiary">
+                <span class="triage-tag">Bucket 3</span>
+                <div class="triage-route"><strong>Course curiosity</strong><span class="triage-arrow">→</span> Future product page (off by default, switch on later)</div>
+              </div>
+            </div>
+          </div>
+        </div>
         <div class="build-math"><strong>The realistic funnel math:</strong> at industry-standard cold-outbound rates for warm sender reputation (3–5% reply, 30% reply-to-meeting, 25% meeting-to-listing, 70% close), <strong>~10,000 sends/yr produces ~26 closed transactions</strong>. At your blended $30K take-home, that lands roughly <strong>+$780K of new GCI take-home</strong>. The plan is conservative against that benchmark and assumes 14 net new closes (~+$420K) so the math works even if reply rates land at the low end of the band. <em>Numbers above are illustrative and will be re-cut against your real Follow-Up Boss conversion data on Call 2.</em></div>
       </div>
       <div class="build reveal">
